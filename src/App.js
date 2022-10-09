@@ -1,27 +1,18 @@
 // import logo from './logo.svg';
 import './App.css';
+import Login from './pages/login';
+import Page1 from './pages/page1';
+import Page2 from './pages/page2';
+import Page3 from './pages/page3';
 
 function App() {
   return (
-    <div className="login-wrapper">
-    <form action="" className="form">
-      <h2>Login</h2>
-      <div className="input-group">
-        <input type="text" name="loginUser" id="loginUser" required />
-        <label for="loginUser">User Name</label>
-      </div>
-      <div className="input-group">
-        <input
-          type="password"
-          name="loginPassword"
-          id="loginPassword"
-          required
-        />
-        <label for="loginPassword">Password</label>
-      </div>
-      <input type="submit" value="Login" className="submit-btn" />
-    </form>
-  </div>
+    <>
+    {/* <Login></Login> */}
+    {/* <Page1></Page1> */}
+    {/* <Page2></Page2> */}
+    <Page3></Page3>
+    </>
   );
 }
 
