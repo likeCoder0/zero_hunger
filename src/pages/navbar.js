@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { GrLocation } from 'react-icons/gr';
 
 const Navbar = () => {
   const [show, setShow] = useState(false);
@@ -32,7 +33,12 @@ const Navbar = () => {
                 </li>
                 <li class="nav-item">
                   <Link class="nav-link" to="/page1">
-                    Question
+                    Donate
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link class="nav-link" to="/page1">
+                  <GrLocation /> Select your address
                   </Link>
                 </li>
                 <li class="nav-item">

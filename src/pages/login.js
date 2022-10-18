@@ -1,4 +1,6 @@
 import React from 'react'
+import { AiFillGoogleCircle,AiFillFacebook,AiFillApple } from 'react-icons/ai';
+// import { BsFacebook, } from 'react-icons/bs';
 
 const Login = () => {
   return (
@@ -20,6 +22,7 @@ const Login = () => {
       </div>
       <input type="submit" value="Login" className="submit-btn" />
     </form>
+    
   </div>
   )
 }
