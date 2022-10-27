@@ -1,5 +1,6 @@
 import React from 'react'
-import { AiFillGoogleCircle,AiFillFacebook,AiFillApple } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+// import { AiFillGoogleCircle,AiFillFacebook,AiFillApple } from 'react-icons/ai';
 // import { BsFacebook, } from 'react-icons/bs';
 
 const Login = () => {
@@ -21,6 +22,8 @@ const Login = () => {
         <label for="loginPassword">Password</label>
       </div>
       <input type="submit" value="Login" className="submit-btn" />
+      <hr></hr>
+      <p>New Donor? <Link to="/signin">Start here.</Link></p>
     </form>
     
   </div>
