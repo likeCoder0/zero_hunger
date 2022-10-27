@@ -36,7 +36,7 @@ const Footer = () => {
 
   <div>
     <i class="fa fa-phone"></i>
-    <p>+1.555.555.5555</p>
+    <p>+9196 3434 5678</p>
   </div>
 
   <div>

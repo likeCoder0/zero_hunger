@@ -13,7 +13,9 @@ const Page3 = () => {
           </h1>
         </div>
         <div>
+          <Link to="/pay">
           <button class="button button1">UPI Link</button>
+          </Link>
         </div>
        
       </div>

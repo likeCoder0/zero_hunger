@@ -19,6 +19,8 @@ import Footer from "./pages/footer";
 import Content from "./pages/content";
 import Address from "./pages/address";
 import Contact from "./pages/contact";
+import Service from "./pages/service";
+import Pay from "./pages/pay";
 
 function App() {
   return (
@@ -31,8 +33,10 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/signin" element={<SignIn/>} />
         <Route path="/content" element={<Content/>} />
+        {/* <Route path="/service" element={<Service/>} /> */}
         <Route path="/contact" element={<Contact/>} />
         <Route path="/address" element={<Address/>} />
+        <Route path="/pay" element={<Pay/>} />
         <Route path="/page1" element={<Page1/>} />
         <Route path="/page2" element={<Page2/>} />
         <Route path="/page3" element={<Page3/>} />

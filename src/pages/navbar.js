@@ -41,11 +41,11 @@ const Navbar = () => {
                   <GrLocation /> Select your address
                   </Link>
                 </li>
-                <li class="nav-item">
+                {/* <li class="nav-item">
                   <Link class="nav-link" to="/service">
                     Services
                   </Link>
-                </li>
+                </li> */}
                 <li class="nav-item">
                   <Link class="nav-link" to="/contact">
                     Contact

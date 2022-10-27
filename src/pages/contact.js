@@ -12,20 +12,20 @@ const Contact = () => {
         <div class="address details">
           <i class="fas fa-map-marker-alt"></i>
           <div class="topic">Address</div>
-          <div class="text-one">Surkhet, NP12</div>
-          <div class="text-two">Birendranagar 06</div>
+          <div class="text-one">444 S. Cedros Ave</div>
+          <div class="text-two">Solana Beach, Mumbai</div>
         </div>
         <div class="phone details">
           <i class="fas fa-phone-alt"></i>
           <div class="topic">Phone</div>
-          <div class="text-one">+0098 9893 5647</div>
-          <div class="text-two">+0096 3434 5678</div>
+          <div class="text-one">+9198 9893 5647</div>
+          <div class="text-two">+9196 3434 5678</div>
         </div>
         <div class="email details">
           <i class="fas fa-envelope"></i>
           <div class="topic">Email</div>
-          <div class="text-one">codinglab@gmail.com</div>
-          <div class="text-two">info.codinglab@gmail.com</div>
+          <div class="text-one">support@zerohunger.com</div>
+          {/* <div class="text-two">info.codinglab@gmail.com</div> */}
         </div>
       </div>
       <div class="right-side">
