@@ -43,9 +43,7 @@ const Address = () => {
     </div>
     </div>
   </div>
-  <
-    Footer
-  ></Footer>
+  <Footer></Footer>
     </div>
   )
 }

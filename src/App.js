@@ -15,16 +15,18 @@ import Contact from "./pages/contact";
 import Pay from "./pages/pay";
 import Protect_routes from "./utils/protect_routes";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
+import Cooked from "./pages/cooked";
+import Grocery from "./pages/grocery";
 
 function App() {
   return (
     <div className="App">
       <UserAuthContextProvider>
       <Routes>
-          <Route path="/home" element={<Protect_routes>
-                    <Home />
-                  </Protect_routes>} />
+          <Route path="/home" element={<Protect_routes><Home /></Protect_routes>} />
           <Route path="/navbar" element={<Protect_routes><Navbar /></Protect_routes>} />
+          <Route path="/cooked" element={<Protect_routes><Cooked /></Protect_routes>} />
+          <Route path="/grocery" element={<Protect_routes><Grocery /></Protect_routes>} />
           <Route path="/content" element={<Protect_routes><Content /></Protect_routes>} />
           <Route path="/contact" element={<Protect_routes><Contact /></Protect_routes>} />
           <Route path="/address" element={<Protect_routes><Address /></Protect_routes>} />
@@ -33,8 +35,8 @@ function App() {
           <Route path="/page2" element={<Protect_routes><Page2 /></Protect_routes>} />
           <Route path="/page3" element={<Protect_routes><Page3 /></Protect_routes>} />
           <Route path="/footer" element={<Protect_routes><Footer /></Protect_routes>} />
-        <Route path="/signin" element={<SignIn />} />
-        <Route path="/" element={<Login />} />
+          <Route path="/signin" element={<SignIn />} />
+          <Route path="/" element={<Login />} />
       </Routes>
       </UserAuthContextProvider>
     </div>
