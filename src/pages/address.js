@@ -37,7 +37,7 @@ const Address = () => {
               </div>
 
               <div class="contact-button">
-                <input type="button" value="Send Now" />
+                <input type="button" value="Add Address" />
               </div>
             </form>
           </div>
