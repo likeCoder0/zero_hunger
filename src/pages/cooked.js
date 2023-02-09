@@ -30,7 +30,10 @@ const Cooked = () => {
               </div>
 
               <div class="input-box">
-                <input type="text" placeholder="Approximate date/time of food" />
+                <input
+                  type="text"
+                  placeholder="Approximate date/time of food"
+                />
               </div>
 
               <div class="input-box">
