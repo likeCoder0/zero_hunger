@@ -1,8 +1,20 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { GrLocation } from 'react-icons/gr';
+import { useNavigate } from "react-router";
+import { useUserAuth } from "../context/UserAuthContext";
 
 const Navbar = () => {
+  const { logOut } = useUserAuth();
+  const navigate = useNavigate();
+  const handleLogout = async () => {
+    try {
+      await logOut();
+      navigate("/");
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
   const [show, setShow] = useState(false);
 
   return (
@@ -27,7 +39,7 @@ const Navbar = () => {
             <div class={`collapse navbar-collapse ${show ? "show" : ""}`}>
               <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                  <Link class="nav-link active" aria-current="page" to="/">
+                  <Link class="nav-link active" aria-current="page" to="/home">
                     Home
                   </Link>
                 </li>
@@ -53,11 +65,9 @@ const Navbar = () => {
                 </li>
               </ul>
               <form class="d-flex">
-              <Link to="/login">
-                <button class="btn  btn-style" type="submit">
-                  Log in/Sign Up
+                <button class="btn  btn-style" type="submit" onClick={handleLogout}>
+                  Log out
                 </button>
-                </Link>
               </form>
             </div>
           </div>
