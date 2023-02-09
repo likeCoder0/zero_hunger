@@ -19,7 +19,7 @@ const Page2 = () => {
         </div>
         <div>
           <Link to="/grocery">
-            <button class="button button2">Uncooked food</button>
+            <button class="button button2">Grocery</button>
           </Link>
         </div>
       </div>

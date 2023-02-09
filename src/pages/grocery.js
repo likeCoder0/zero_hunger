@@ -2,6 +2,7 @@ import React from "react";
 
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { Link } from "react-router-dom";
 
 const Grocery = () => {
   return (
@@ -38,7 +39,9 @@ const Grocery = () => {
               </div>
 
               <div class="contact-button">
+                <Link to="/home">
                 <input type="button" value="Continue" />
+                </Link>
               </div>
             </form>
           </div>

@@ -2,6 +2,7 @@ import React from "react";
 
 import Navbar from "./navbar";
 import Footer from "./footer";
+import { Link } from "react-router-dom";
 
 const Cooked = () => {
   return (
@@ -41,7 +42,9 @@ const Cooked = () => {
               </div>
 
               <div class="contact-button">
+                <Link to="/home">
                 <input type="button" value="Continue" />
+                </Link>
               </div>
             </form>
           </div>
