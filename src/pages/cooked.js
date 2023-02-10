@@ -1,10 +1,59 @@
 import React from "react";
-
+import { useState } from "react";
 import Navbar from "./navbar";
 import Footer from "./footer";
 import { Link } from "react-router-dom";
 
 const Cooked = () => {
+  const [userData, setUserData] = useState({
+    which: "",
+    canned: "",
+    time: "",
+    pres: "",
+  });
+
+  let name, value;
+  const postUserData = (event) => {
+    name = event.target.name;
+    value = event.target.value;
+
+    setUserData({ ...userData, [name]: value });
+  };
+
+  // connect with firebase
+  const submitData = async (event) => {
+    event.preventDefault();
+    const { which,canned,time,pres} = userData;
+
+    if (which && canned && time&& pres) {
+      const res = fetch(
+        process.env.REACT_APP_DATABASE,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            which,canned,time,pres
+          }),
+        }
+      );
+
+      if (res) {
+        setUserData({
+          which: "",
+    canned: "",
+    time: "",
+    pres: "",
+        });
+        alert("Data Stored");
+      } else {
+        alert("plz fill the data");
+      }
+    } else {
+      alert("plz fill the data");
+    }
+  };
   return (
     <div>
       <Navbar></Navbar>
@@ -21,29 +70,30 @@ const Cooked = () => {
           <div class="right-side">
             <div class="topic-text">Cooked Food details</div>
 
-            <form action="#">
+            <form action="#" method="POST">
               <div class="input-box">
-                <input type="text" placeholder="Q.which type of food?" />
+                <input type="text" placeholder="Q.which type of food?" name='which' id='' onChange={postUserData}/>
               </div>
 
               <div class="input-box">
-                <input type="text" placeholder="Canned/Unpack food" />
+                <input type="text" placeholder="Canned/Unpack food" name='canned' id='' onChange={postUserData} />
               </div>
 
               <div class="input-box">
                 <input
                   type="text"
                   placeholder="Approximate date/time of food"
+                  name='time' id='' onChange={postUserData}
                 />
               </div>
 
               <div class="input-box">
-                <input type="text" placeholder="Preservation Used?" />
+                <input type="text" placeholder="Preservation Used?" name='pres' id='' onChange={postUserData}/>
               </div>
 
               <div class="contact-button">
                 <Link to="/home">
-                <input type="button" value="Continue" />
+                <input type="button" value="Continue" onClick={submitData}/>
                 </Link>
               </div>
             </form>

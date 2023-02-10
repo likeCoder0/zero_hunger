@@ -1,10 +1,59 @@
 import React from "react";
-
+import { useState } from "react";
 import Navbar from "./navbar";
 import Footer from "./footer";
 import { Link } from "react-router-dom";
 
 const Grocery = () => {
+  const [userData, setUserData] = useState({
+    which: "",
+    canned: "",
+    time: "",
+    pres: "",
+  });
+
+  let name, value;
+  const postUserData = (event) => {
+    name = event.target.name;
+    value = event.target.value;
+
+    setUserData({ ...userData, [name]: value });
+  };
+
+  // connect with firebase
+  const submitData = async (event) => {
+    event.preventDefault();
+    const { grocery_which,grocery_canned,grocery_time,grocery_pres} = userData;
+
+    if (grocery_which && grocery_canned && grocery_time&& grocery_pres) {
+      const res = fetch(
+        process.env.REACT_APP_DATABASE,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            grocery_which,grocery_canned,grocery_time,grocery_pres
+          }),
+        }
+      );
+
+      if (res) {
+        setUserData({
+          grocery_which: "",
+          grocery_canned: "",
+          grocery_time: "",
+          grocery_pres: "",
+        });
+        alert("Data Stored");
+      } else {
+        alert("plz fill the data");
+      }
+    } else {
+      alert("plz fill the data");
+    }
+  };
   return (
     <div>
       <Navbar></Navbar>
@@ -21,26 +70,26 @@ const Grocery = () => {
           <div class="right-side">
             <div class="topic-text">Grocery details</div>
 
-            <form action="#">
+            <form action="#" method="POST">
               <div class="input-box">
-                <input type="text" placeholder="Which type of grocery?" />
+                <input type="text" placeholder="Which type of grocery?" name='grocery_which' id='' onChange={postUserData} />
               </div>
 
               <div class="input-box">
-                <input type="text" placeholder="Canned/Unpack Food" />
+                <input type="text" placeholder="Canned/Unpack Food" name='grocery_canned' id='' onChange={postUserData}/>
               </div>
 
               <div class="input-box">
-                <input type="text" placeholder="Fresh/Old Food" />
+                <input type="text" placeholder="Fresh/Old Food" name='grocery_time' id='' onChange={postUserData}/>
               </div>
 
               <div class="input-box">
-                <input type="text" placeholder="Expiry Date" />
+                <input type="text" placeholder="Expiry Date"name='grocery_pres' id='' onChange={postUserData} />
               </div>
 
               <div class="contact-button">
                 <Link to="/home">
-                <input type="button" value="Continue" />
+                <input type="button" value="Continue" onClick={submitData}/>
                 </Link>
               </div>
             </form>
