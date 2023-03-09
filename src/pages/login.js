@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
+import { Button } from "react-bootstrap";
 // import { AiFillGoogleCircle,AiFillFacebook,AiFillApple } from 'react-icons/ai';
 // import { BsFacebook, } from 'react-icons/bs';
 
@@ -10,7 +11,7 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { logIn, googleSignIn } = useUserAuth();
+  const { logIn, googleSignIn ,signinWithGoogle} = useUserAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -54,6 +55,10 @@ const Login = () => {
           className="submit-btn"
           onClick={handleSubmit}
         />
+        <h4 className="mt-1 mb-1">OR</h4>
+        <Button variant="danger" onClick={signinWithGoogle}>
+          Sigin with Google
+        </Button>
         <hr></hr>
         <p>
           New User? <Link to="/signin">Start here.</Link>
