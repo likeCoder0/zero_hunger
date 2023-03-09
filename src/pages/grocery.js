@@ -78,13 +78,19 @@ const Grocery = () => {
               <div class="input-box">
                 <input type="text" placeholder="Canned/Unpack Food" name='grocery_canned' id='' onChange={postUserData}/>
               </div>
-
               <div class="input-box">
-                <input type="text" placeholder="Fresh/Old Food" name='grocery_time' id='' onChange={postUserData}/>
+                <input type="number" placeholder="Number of kgs" min={1} name='grocery_canned' id='' onChange={postUserData}/>
               </div>
 
               <div class="input-box">
-                <input type="text" placeholder="Expiry Date"name='grocery_pres' id='' onChange={postUserData} />
+              <select class="form-select" aria-label="Default select example">
+  <option selected>--Estimate duration for which the grocery is consumable--</option>
+  <option value="1">0-2 days</option>
+  <option value="2">2-4 weeks</option>
+  <option value="3">4-6 weeks</option>
+  <option value="3">6-8 weeks</option>
+  <option value="3">Above 8 weeks</option>
+</select>
               </div>
 
               <div class="contact-button">

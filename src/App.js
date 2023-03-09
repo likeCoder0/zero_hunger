@@ -17,6 +17,9 @@ import Protect_routes from "./utils/protect_routes";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Cooked from "./pages/cooked";
 import Grocery from "./pages/grocery";
+import SearchPage from "./pages/SearchPage";
+import ListPage from "./pages/ListPage";
+import DetailPage from "./pages/DetailPage";
 
 function App() {
   return (
@@ -25,6 +28,9 @@ function App() {
       <Routes>
           <Route path="/home" element={<Protect_routes><Home /></Protect_routes>} />
           <Route path="/navbar" element={<Protect_routes><Navbar /></Protect_routes>} />
+          <Route path="/search" element={<Protect_routes><SearchPage /></Protect_routes>} />
+          <Route path="/list" element={<Protect_routes><ListPage /></Protect_routes>} />
+          <Route path="/detail" element={<Protect_routes><DetailPage /></Protect_routes>} />
           <Route path="/cooked" element={<Protect_routes><Cooked /></Protect_routes>} />
           <Route path="/grocery" element={<Protect_routes><Grocery /></Protect_routes>} />
           <Route path="/content" element={<Protect_routes><Content /></Protect_routes>} />

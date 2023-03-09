@@ -80,16 +80,23 @@ const Cooked = () => {
               </div>
 
               <div class="input-box">
-                <input
-                  type="text"
-                  placeholder="Approximate date/time of food"
-                  name='time' id='' onChange={postUserData}
-                />
+              <select class="form-select" aria-label="Default select example">
+  <option selected>--Estimate duration for which the food is consumable--</option>
+  <option value="1">0-2 hours</option>
+  <option value="2">2-4 hours</option>
+  <option value="3">4-6 hours</option>
+  <option value="3">6-8 hours</option>
+  <option value="3">8-10 hours</option>
+</select>
               </div>
 
               <div class="input-box">
-                <input type="text" placeholder="Preservation Used?" name='pres' id='' onChange={postUserData}/>
+                <input type="number" placeholder="Estimated servings possible?" min="1" name='pres' id='' onChange={postUserData}/>
               </div>
+              <div class="mb-3">
+  <label for="formFile" class="form-label">Upload a picture of food</label>
+  <input class="form-control" type="file" id="formFile"/>
+</div>
 
               <div class="contact-button">
                 <Link to="/home">

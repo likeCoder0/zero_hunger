@@ -56,7 +56,7 @@ const Login = () => {
         />
         <hr></hr>
         <p>
-          New Donor? <Link to="/signin">Start here.</Link>
+          New User? <Link to="/signin">Start here.</Link>
         </p>
       </form>
     </div>
