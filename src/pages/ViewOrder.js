@@ -1,30 +1,33 @@
+import { async } from "@firebase/util";
 import React, { useEffect, useState } from "react";
+import { Button } from "react-bootstrap";
 import BookCard from "../components/Card";
 import { useUserAuth } from "../context/UserAuthContext";
+import Navbar from "./navbar";
 
 const OrdersPage = () => {
   const firebase = useUserAuth();
-  const [books, setBooks] = useState([]);
+  const [foods, setFoods] = useState([]);
 
   useEffect(() => {
-    if (firebase.isLoggedIn)
-      firebase
-        .fetchMyBooks(firebase.user.uid)
-        ?.then((books) => setBooks(books.docs));
+      firebase.fetchMydonor("userID",firebase.user.uid)?.then((foods) => setFoods(foods.docs));
   }, [firebase]);
 
-  console.log(books);
+  console.log(foods);
 
-  if (!firebase.isLoggedIn) return <h1>Please log in</h1>;
+  // eslint-disable-next-line eqeqeq
+  if (foods.length==0) return <h1>No Donation</h1>;
 
   return (
     <div>
-      {books.map((book) => (
+      <Navbar></Navbar>
+      
+      {foods.map((food) => (
         <BookCard
-          link={`/books/orders/${book.id}`}
-          key={book.id}
-          id={book.id}
-          {...book.data()}
+          link={`/food/orders/${food.id}`}
+          key={food.id}
+          id={food.id}
+          {...food.data()}
         />
       ))}
     </div>

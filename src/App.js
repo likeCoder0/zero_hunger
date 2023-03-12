@@ -20,16 +20,22 @@ import Grocery from "./pages/grocery";
 import SearchPage from "./pages/SearchPage";
 import ListPage from "./pages/ListPage";
 import DetailPage from "./pages/DetailPage";
+import OrdersPage from "./pages/ViewOrder";
+import ViewOrderDetails from "./pages/ViewOrderDetail";
+import DashBoard from "./pages/DashBoard";
 
 function App() {
   return (
     <div className="App">
       <UserAuthContextProvider>
       <Routes>
-          <Route path="/home" element={<Protect_routes><Home /></Protect_routes>} />
           <Route path="/navbar" element={<Protect_routes><Navbar /></Protect_routes>} />
-          <Route path="/search" element={<Protect_routes><SearchPage /></Protect_routes>} />
+          <Route path="/home" element={<Protect_routes><Home /></Protect_routes>} />
+          <Route path="/dashBoard" element={<Protect_routes><DashBoard /></Protect_routes>} />
           <Route path="/list" element={<Protect_routes><ListPage /></Protect_routes>} />
+          <Route path="/food/orders" element={<Protect_routes><OrdersPage /></Protect_routes>} />
+          {/* <Route path="/search" element={<Protect_routes><SearchPage /></Protect_routes>} /> */}
+          <Route path="/food/orders/:foodId" element={<Protect_routes><ViewOrderDetails /></Protect_routes>} />
           <Route path="/food/view/:foodId" element={<Protect_routes><DetailPage /></Protect_routes>} />
           <Route path="/cooked" element={<Protect_routes><Cooked /></Protect_routes>} />
           <Route path="/grocery" element={<Protect_routes><Grocery /></Protect_routes>} />

@@ -95,13 +95,11 @@ const Grocery = () => {
               </div>
 
               <div class="contact-button">
-                <Link to="/home">
                   <input
                     type="button"
                     value="Continue"
                     onClick={handleSubmit}
                   />
-                </Link>
               </div>
             </form>
           </div>

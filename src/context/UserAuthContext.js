@@ -105,28 +105,28 @@ export function UserAuthContextProvider({ children }) {
     return result;
   };
 
-  const placeOrder = async (bookId, qty) => {
-    const collectionRef = collection(firestore, "donor", bookId, "orders");
+  const placeOrder = async (foodId, qty) => {
+    const collectionRef = collection(firestore, "donor", foodId, "orders");
     const result = await addDoc(collectionRef, {
       userID: user.uid,
       userEmail: user.email,
       displayName: user.displayName,
       photoURL: user.photoURL,
-      qty: Number(qty),
+      pres: Number(qty),
     });
     return result;
   };
 
-  const fetchMydonor = async (userId) => {
+  const fetchMydonor = async (userID,userId) => {
     const collectionRef = collection(firestore, "donor");
-    const q = query(collectionRef, where("userID", "==", userId));
+    const q = query(collectionRef, where(userID, "==", userId));
 
     const result = await getDocs(q);
     return result;
   };
 
-  const getOrders = async (bookId) => {
-    const collectionRef = collection(firestore, "donor", bookId, "orders");
+  const getOrders = async (foodId) => {
+    const collectionRef = collection(firestore, "donor", foodId, "orders");
     const result = await getDocs(collectionRef);
     return result;
   };
@@ -158,7 +158,12 @@ export function UserAuthContextProvider({ children }) {
         listAllFood,
         getImageURL,
         getDonorById,
+        fetchMydonor,
+        placeOrder,
+        getOrders,
         logOut,
+        // eslint-disable-next-line no-dupe-keys
+        user,
       }}
     >
       {children}

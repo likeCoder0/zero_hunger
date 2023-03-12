@@ -4,6 +4,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import { useParams } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
+import Navbar from "./navbar";
 
 const DetailPage = () => {
   const params = useParams();
@@ -14,28 +15,29 @@ const DetailPage = () => {
   const [data, setData] = useState(null);
   const [url, setURL] = useState(null);
 
-  console.log(data);
-
   useEffect(() => {
-    firebase.getDonorById(params.foodId).then((value) => setData(value.data()));
+    firebase.getDonorById(params.foodId)?.then((value) => setData(value.data()));
   }, []);
 
   useEffect(() => {
     if (data) {
       const imageURL = data.imageURL;
-      firebase.getImageURL(imageURL).then((url) => setURL(url));
+      firebase.getImageURL(imageURL)?.then((url) => setURL(url));
     }
   }, [data]);
 
   const placeOrder = async () => {
-    const result = await firebase.placeOrder(params.foodId, qty);
-    console.log("Order Placed", result);
+    await firebase.placeOrder(params.foodId, qty);
+    alert("Your order is Booked.");
   };
 
   if (data == null) return <h1>Loading...</h1>;
 
   return (
+    <>
+      <Navbar></Navbar>
     <div className="DetailPage container mt-5">
+
       <h1>{data.name}</h1>
       <img src={url} width="50%" style={{ borderRadius: "10px" }} />
       <h1>Details</h1>
@@ -64,6 +66,7 @@ const DetailPage = () => {
         Order
       </Button>
     </div>
+    </>
   );
 };
 

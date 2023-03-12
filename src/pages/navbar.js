@@ -44,13 +44,23 @@ const Navbar = () => {
                   </Link>
                 </li>
                 <li class="nav-item">
+                  <Link class="nav-link active" aria-current="page" to="/dashBoard">
+                    DashBoard
+                  </Link>
+                </li>
+                <li class="nav-item">
                   <Link class="nav-link" to="/page1">
                     Donate
                   </Link>
                 </li>
                 <li class="nav-item">
-                  <Link class="nav-link" to="/search">
+                  <Link class="nav-link" to="/list">
                     Search
+                  </Link>
+                </li>
+                <li class="nav-item">
+                  <Link class="nav-link" to="/food/orders">
+                    Order
                   </Link>
                 </li>
                 <li class="nav-item">

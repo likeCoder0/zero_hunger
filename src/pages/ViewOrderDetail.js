@@ -1,18 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Button } from "react-bootstrap";
+import { useNavigate, useParams } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
+import Navbar from "./navbar";
 const ViewOrderDetails = () => {
+  const navigate=useNavigate();
+  
   const params = useParams();
   const firebase = useUserAuth();
 
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    firebase.getOrders(params.bookId).then((orders) => setOrders(orders.docs));
+    firebase.getOrders(params.foodId)?.then((orders) => setOrders(orders.docs));
   }, []);
+  
 
   return (
+    <>
+      <Navbar></Navbar>
     <div className="container mt-3">
+
       <h1>Orders</h1>
       {orders.map((order) => {
         const data = order.data();
@@ -23,12 +31,16 @@ const ViewOrderDetails = () => {
             style={{ border: "1px solid", padding: "10px" }}
           >
             <h5>Order By: {data.displayName}</h5>
-            <h6>Qty: {data.qty}</h6>
+            <h6>Qty: {data.pres}</h6>
             <p>Email: {data.userEmail}</p>
           </div>
         );
       })}
+      <div className="mt-3" style={{  padding: "10px" }}>
+        <Button onClick={e=>navigate("/food/orders")}>Back</Button>
+      </div>
     </div>
+    </>
   );
 };
 
