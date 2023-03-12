@@ -4,12 +4,17 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   signOut,
-  GoogleAuthProvider,
   signInWithPopup,
+  GoogleAuthProvider,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import app, { auth } from "../firebase";
 
 const userAuthContext = createContext();
+const firestore = getFirestore(app);
+const storage = getStorage(app);
+const googleProvider = new GoogleAuthProvider();
 
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState({});
@@ -20,17 +25,89 @@ export function UserAuthContextProvider({ children }) {
   function signUp(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
-  function signinWithGoogle(){
-    return signInWithPopup(auth, GoogleAuthProvider);
+
+  const signinWithGoogle = () => signInWithPopup(auth, googleProvider);
+  // Adding address of user
+  const handleCreateNewAddress = async (address, city, state, pin) => {
+    // const imageRef = ref(storage, `uploads/images/${Date.now()}-${cover.name}`);
+    // const uploadResult = await uploadBytes(imageRef, cover);
+    return await addDoc(collection(firestore, "users"), {
+      address,
+      city,
+      state,
+      pin,
+      // imageURL: uploadResult.ref.fullPath,
+      userID: user.uid,
+      userEmail: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    });
+  };
+  // donating
+  const handleCreateNewDonatingCooked = async (
+    which,
+    canned,
+    time,
+    pres,
+    foodPic
+  ) => {
+    const imageRef = ref(
+      storage,
+      `uploads/images/${Date.now()}-${foodPic.name}`
+    );
+    const uploadResult = await uploadBytes(imageRef, foodPic);
+    return await addDoc(collection(firestore, "donor"), {
+      which,
+      canned,
+      time,
+      pres,
+      foodType:"Cooked",
+      imageURL: uploadResult.ref.fullPath,
+      userID: user.uid,
+      userEmail: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    });
+  };
+  const handleCreateNewDonatingGrocery = async (
+    which,
+    canned,
+    quatity,
+    time,
+  ) => {
+    // const imageRef = ref(
+    //   storage,
+    //   `uploads/images/${Date.now()}-${foodPic.name}`
+    // );
+    // const uploadResult = await uploadBytes(imageRef, foodPic);
+    return await addDoc(collection(firestore, "donor"), {
+      which,
+      canned,
+      quatity,
+      time,
+      // imageURL: uploadResult.ref.fullPath,
+      foodType:"Grocery",
+      userID: user.uid,
+      userEmail: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+    });
+  };
+
+  const listAllFood=async()=>{
+    return await getDocs(collection(firestore,"donor"));
   }
-  function logOut() {
+
+  const getImageURL=(path)=>{
+    return getDownloadURL(ref(storage,path));
+  }
+
+  const logOut=()=> {
     return signOut(auth);
   }
- 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentuser) => {
-      console.log("Auth", currentuser);
       setUser(currentuser);
     });
 
@@ -41,7 +118,18 @@ export function UserAuthContextProvider({ children }) {
 
   return (
     <userAuthContext.Provider
-      value={{ user, logIn, signUp,signinWithGoogle, logOut}}
+      value={{
+        user,
+        logIn,
+        signUp,
+        signinWithGoogle,
+        handleCreateNewAddress,
+        handleCreateNewDonatingCooked,
+        handleCreateNewDonatingGrocery,
+        listAllFood,
+        getImageURL,
+        logOut,
+      }}
     >
       {children}
     </userAuthContext.Provider>
@@ -149,5 +237,3 @@ export function useUserAuth() {
 //     </FirebaseContext.Provider>
 //   );
 // };
-
-  

@@ -5,11 +5,11 @@ import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
 
 const Navbar = () => {
-  const { logOut } = useUserAuth();
+  const firebase = useUserAuth();
   const navigate = useNavigate();
   const handleLogout = async () => {
     try {
-      await logOut();
+      await firebase.logOut();
       navigate("/");
     } catch (error) {
       console.log(error.message);

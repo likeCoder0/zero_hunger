@@ -3,57 +3,69 @@ import { useState } from "react";
 import Navbar from "./navbar";
 import Footer from "./footer";
 import { Link } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
 
 const Cooked = () => {
-  const [userData, setUserData] = useState({
-    which: "",
-    canned: "",
-    time: "",
-    pres: "",
-  });
+  const firebase = useUserAuth();
+  const [time, setTime] = useState("");
+  const [which, setWhich] = useState("");
+  const [pres, setPres] = useState("");
+  const [canned, setCanned] = useState("");
+  const [foodPic, setFoodPic] = useState("");
 
-  let name, value;
-  const postUserData = (event) => {
-    name = event.target.name;
-    value = event.target.value;
-
-    setUserData({ ...userData, [name]: value });
+  const handleSubmit = async(e) => {
+    e.preventDefault();
+    await firebase.handleCreateNewDonatingCooked(which,canned,time,pres,foodPic);
   };
+  // const [userData, setUserData] = useState({
+  //   which: "",
+  //   canned: "",
+  //   time: "",
+  //   pres: "",
+  // });
 
-  // connect with firebase
-  const submitData = async (event) => {
-    event.preventDefault();
-    const { which, canned, time, pres } = userData;
+  // let name, value;
+  // const postUserData = (event) => {
+  //   name = event.target.name;
+  //   value = event.target.value;
 
-    if (which && canned && time && pres) {
-      const res = fetch(process.env.REACT_APP_DATABASE, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          which,
-          canned,
-          time,
-          pres,
-        }),
-      });
+  //   setUserData({ ...userData, [name]: value });
+  // };
 
-      if (res) {
-        setUserData({
-          which: "",
-          canned: "",
-          time: "",
-          pres: "",
-        });
-        alert("Data Stored");
-      } else {
-        alert("plz fill the data");
-      }
-    } else {
-      alert("plz fill the data");
-    }
-  };
+  // // connect with firebase
+  // const submitData = async (event) => {
+  //   event.preventDefault();
+  //   const { which, canned, time, pres } = userData;
+
+  //   if (which && canned && time && pres) {
+  //     const res = fetch(process.env.REACT_APP_DATABASE, {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({
+  //         which,
+  //         canned,
+  //         time,
+  //         pres,
+  //       }),
+  //     });
+
+  //     if (res) {
+  //       setUserData({
+  //         which: "",
+  //         canned: "",
+  //         time: "",
+  //         pres: "",
+  //       });
+  //       alert("Data Stored");
+  //     } else {
+  //       alert("plz fill the data");
+  //     }
+  //   } else {
+  //     alert("plz fill the data");
+  //   }
+  // };
   return (
     <div>
       <Navbar></Navbar>
@@ -77,30 +89,41 @@ const Cooked = () => {
                   placeholder="Q.which type of food?"
                   name="which"
                   id=""
-                  onChange={postUserData}
+                  value={which}
+                  onChange={(e) => setWhich(e.target.value)}
                 />
               </div>
 
-              <div class="input-box">
+              {/* <div class="input-box">
                 <input
                   type="text"
                   placeholder="Canned/Unpack food"
                   name="canned"
                   id=""
-                  onChange={postUserData}
+                  value={canned}
+                  onChange={(e) => setCanned(e.target.value)}
                 />
+              </div> */}
+              <div class="input-box">
+                <select class="form-select" aria-label="Default select example" value={canned} onChange={(e) => setCanned(e.target.value)} >
+                  <option selected>
+                    --Canned/Unpack food--
+                  </option>
+                  <option value="Canned food">Canned food</option>
+                  <option value="Unpack food">Unpack food</option>
+                </select>
               </div>
 
               <div class="input-box">
-                <select class="form-select" aria-label="Default select example">
+                <select class="form-select" aria-label="Default select example" value={time} onChange={(e) => setTime(e.target.value)} >
                   <option selected>
                     --Estimate duration for which the food is consumable--
                   </option>
-                  <option value="1">0-2 hours</option>
-                  <option value="2">2-4 hours</option>
-                  <option value="3">4-6 hours</option>
-                  <option value="4">6-8 hours</option>
-                  <option value="5">8-10 hours</option>
+                  <option value="0-2 hours">0-2 hours</option>
+                  <option value="2-4 hours">2-4 hours</option>
+                  <option value="4-6 hours">4-6 hours</option>
+                  <option value="6-8 hours">6-8 hours</option>
+                  <option value="8-10 hours">8-10 hours</option>
                 </select>
               </div>
 
@@ -111,19 +134,20 @@ const Cooked = () => {
                   min="1"
                   name="pres"
                   id=""
-                  onChange={postUserData}
+                  value={pres}
+                  onChange={(e) => setPres(e.target.value)}
                 />
               </div>
               <div class="mb-3">
                 <label for="formFile" class="form-label">
                   Upload a picture of food
                 </label>
-                <input class="form-control" type="file" id="formFile" />
+                <input class="form-control" type="file" id="formFile" onChange={(e) => setFoodPic(e.target.files[0])}/>
               </div>
 
               <div class="contact-button">
                 <Link to="/home">
-                  <input type="button" value="Continue" onClick={submitData} />
+                  <input type="button" value="Continue" onClick={handleSubmit} />
                 </Link>
               </div>
             </form>

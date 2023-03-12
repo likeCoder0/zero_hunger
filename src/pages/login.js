@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserAuth } from "../context/UserAuthContext";
-import { Button } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
 // import { AiFillGoogleCircle,AiFillFacebook,AiFillApple } from 'react-icons/ai';
 // import { BsFacebook, } from 'react-icons/bs';
 
@@ -11,14 +11,24 @@ const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const { logIn, googleSignIn ,signinWithGoogle} = useUserAuth();
+  const firebase = useUserAuth();
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
     try {
-      await logIn(email, password);
+      await firebase.logIn(email, password);
+      navigate("/home");
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+  const handleGoogle = async (e) => {
+    e.preventDefault();
+    setError("");
+    try {
+      await firebase.signinWithGoogle();
       navigate("/home");
     } catch (err) {
       setError(err.message);
@@ -29,6 +39,7 @@ const Login = () => {
     <div className="login-wrapper">
       <form action="" className="form">
         <h2>Login</h2>
+        {error && <Alert variant="danger">{error}</Alert>}
         <div className="input-group">
           <input
             type="text"
@@ -56,7 +67,7 @@ const Login = () => {
           onClick={handleSubmit}
         />
         <h4 className="mt-1 mb-1">OR</h4>
-        <Button variant="danger" onClick={signinWithGoogle}>
+        <Button variant="danger" onClick={handleGoogle}>
           Sigin with Google
         </Button>
         <hr></hr>

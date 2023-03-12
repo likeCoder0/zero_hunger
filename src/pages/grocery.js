@@ -3,57 +3,69 @@ import { useState } from "react";
 import Navbar from "./navbar";
 import Footer from "./footer";
 import { Link } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
 
 const Grocery = () => {
-  const [userData, setUserData] = useState({
-    which: "",
-    canned: "",
-    time: "",
-    pres: "",
-  });
+  const firebase = useUserAuth();
+  const [time, setTime] = useState("");
+  const [which, setWhich] = useState("");
+  const [canned, setCanned] = useState("");
+  const [quatity, setQuatity] = useState("");
+  const [foodPic, setFoodPic] = useState("");
 
-  let name, value;
-  const postUserData = (event) => {
-    name = event.target.name;
-    value = event.target.value;
-
-    setUserData({ ...userData, [name]: value });
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    await firebase.handleCreateNewDonatingGrocery(which, canned,quatity, time,foodPic);
   };
+  // const [userData, setUserData] = useState({
+  //   which: "",
+  //   canned: "",
+  //   time: "",
+  //   pres: "",
+  // });
 
-  // connect with firebase
-  const submitData = async (event) => {
-    event.preventDefault();
-    const { grocery_which,grocery_canned,grocery_time,grocery_pres} = userData;
+  // let name, value;
+  // const postUserData = (event) => {
+  //   name = event.target.name;
+  //   value = event.target.value;
 
-    if (grocery_which && grocery_canned && grocery_time&& grocery_pres) {
-      const res = fetch(
-        process.env.REACT_APP_DATABASE,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            grocery_which,grocery_canned,grocery_time,grocery_pres
-          }),
-        }
-      );
+  //   setUserData({ ...userData, [name]: value });
+  // };
 
-      if (res) {
-        setUserData({
-          grocery_which: "",
-          grocery_canned: "",
-          grocery_time: "",
-          grocery_pres: "",
-        });
-        alert("Data Stored");
-      } else {
-        alert("plz fill the data");
-      }
-    } else {
-      alert("plz fill the data");
-    }
-  };
+  // // connect with firebase
+  // const submitData = async (event) => {
+  //   event.preventDefault();
+  //   const { grocery_which,grocery_canned,grocery_time,grocery_pres} = userData;
+
+  //   if (grocery_which && grocery_canned && grocery_time&& grocery_pres) {
+  //     const res = fetch(
+  //       process.env.REACT_APP_DATABASE,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           grocery_which,grocery_canned,grocery_time,grocery_pres
+  //         }),
+  //       }
+  //     );
+
+  //     if (res) {
+  //       setUserData({
+  //         grocery_which: "",
+  //         grocery_canned: "",
+  //         grocery_time: "",
+  //         grocery_pres: "",
+  //       });
+  //       alert("Data Stored");
+  //     } else {
+  //       alert("plz fill the data");
+  //     }
+  //   } else {
+  //     alert("plz fill the data");
+  //   }
+  // };
   return (
     <div>
       <Navbar></Navbar>
@@ -72,30 +84,70 @@ const Grocery = () => {
 
             <form action="#" method="POST">
               <div class="input-box">
-                <input type="text" placeholder="Which type of grocery?" name='grocery_which' id='' onChange={postUserData} />
+                <input
+                  type="text"
+                  placeholder="Which type of grocery?"
+                  name="grocery_which"
+                  id=""
+                  value={which}
+                  onChange={(e) => setWhich(e.target.value)}
+                />
               </div>
 
-              <div class="input-box">
+              {/* <div class="input-box">
                 <input type="text" placeholder="Canned/Unpack Food" name='grocery_canned' id='' onChange={postUserData}/>
+              </div> */}
+              <div class="input-box">
+                <select
+                  class="form-select"
+                  aria-label="Default select example"
+                  value={canned}
+                  onChange={(e) => setCanned(e.target.value)}
+                >
+                  <option selected>--Canned/Unpack food--</option>
+                  <option value="Canned food">Canned food</option>
+                  <option value="Unpack food">Unpack food</option>
+                </select>
               </div>
               <div class="input-box">
-                <input type="number" placeholder="Number of kgs" min={1} name='grocery_canned' id='' onChange={postUserData}/>
+                <input
+                  type="number"
+                  placeholder="Number of kgs"
+                  min={1}
+                  name="grocery_canned"
+                  id=""
+                  value={quatity}
+                  onChange={(e) => setQuatity(e.target.value)}
+                />
               </div>
 
               <div class="input-box">
-              <select class="form-select" aria-label="Default select example">
-  <option selected>--Estimate duration for which the grocery is consumable--</option>
-  <option value="1">0-2 days</option>
-  <option value="2">2-4 weeks</option>
-  <option value="3">4-6 weeks</option>
-  <option value="3">6-8 weeks</option>
-  <option value="3">Above 8 weeks</option>
-</select>
+                <select class="form-select" aria-label="Default select example" value={time}
+                  onChange={(e) => setTime(e.target.value)}>
+                  <option selected>
+                    --Estimate duration for which the grocery is consumable--
+                  </option>
+                  <option value="0-2 days">0-2 days</option>
+                  <option value="2-4 weeks">2-4 weeks</option>
+                  <option value="4-6 weeks">4-6 weeks</option>
+                  <option value="6-8 weeks">6-8 weeks</option>
+                  <option value="Above 8 weeks">Above 8 weeks</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="formFile" class="form-label">
+                  Upload a picture of food
+                </label>
+                <input class="form-control" type="file" id="formFile" onChange={(e) => setFoodPic(e.target.files[0])}/>
               </div>
 
               <div class="contact-button">
                 <Link to="/home">
-                <input type="button" value="Continue" onClick={submitData}/>
+                  <input
+                    type="button"
+                    value="Continue"
+                    onClick={handleSubmit}
+                  />
                 </Link>
               </div>
             </form>
