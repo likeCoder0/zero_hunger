@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { GrLocation } from 'react-icons/gr';
+import { GrLocation } from "react-icons/gr";
 import { useNavigate } from "react-router";
 import { useUserAuth } from "../context/UserAuthContext";
 
@@ -33,7 +33,8 @@ const Navbar = () => {
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"
-              onClick={() => setShow(!show)}>
+              onClick={() => setShow(!show)}
+            >
               <span class="navbar-toggler-icon"></span>
             </button>
             <div class={`collapse navbar-collapse ${show ? "show" : ""}`}>
@@ -43,11 +44,21 @@ const Navbar = () => {
                     Home
                   </Link>
                 </li>
-                <li class="nav-item">
-                  <Link class="nav-link active" aria-current="page" to="/dashBoard">
-                    DashBoard
-                  </Link>
-                </li>
+                {(() => {
+                  if (firebase.user.email == "as1514580@gmail.com") {
+                    return (
+                      <li class="nav-item">
+                        <Link
+                          class="nav-link active"
+                          aria-current="page"
+                          to="/dashBoard"
+                        >
+                          DashBoard
+                        </Link>
+                      </li>
+                    );
+                  }
+                })()}
                 <li class="nav-item">
                   <Link class="nav-link" to="/page1">
                     Donate
@@ -65,7 +76,7 @@ const Navbar = () => {
                 </li>
                 <li class="nav-item">
                   <Link class="nav-link" to="/address">
-                  <GrLocation /> Select your address
+                    <GrLocation /> Select your address
                   </Link>
                 </li>
                 {/* <li class="nav-item">
@@ -80,7 +91,11 @@ const Navbar = () => {
                 </li>
               </ul>
               <form class="d-flex">
-                <button class="btn  btn-style" type="submit" onClick={handleLogout}>
+                <button
+                  class="btn  btn-style"
+                  type="submit"
+                  onClick={handleLogout}
+                >
                   Log out
                 </button>
               </form>

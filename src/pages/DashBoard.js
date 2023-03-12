@@ -4,9 +4,6 @@ import { useUserAuth } from "../context/UserAuthContext";
 import Navbar from "./navbar";
 
 const DashBoard = () => {
-  const [stdudentSubject, setStudentsubject] = useState([]);
-  const [studentMarks, setStudentMarks] = useState([]);
-
   const firebase = useUserAuth();
   const [cook, setCook] = useState([]);
   const [grocery, setGrocery] = useState([]);
@@ -16,23 +13,6 @@ const DashBoard = () => {
       firebase.fetchMydonor("foodType","Grocery")?.then((grocery) => setGrocery(grocery.docs));
   }, [firebase]);
 
-  useEffect(() => {
-    const sSubject = [];
-    const sMarks = [];
-    const getStudentdata = async () => {
-      const reqData = await fetch("http://localhost/reactgraphtutorial/marks");
-      const resData = await reqData.json();
-      for (let i = 0; i < resData.length; i++) {
-        sSubject.push(resData[i].subject);
-        sMarks.push(parseInt(resData[i].marks));
-      }
-      setStudentsubject(sSubject);
-      setStudentMarks(sMarks);
-      //console.log(resData);
-    };
-
-    getStudentdata();
-  }, []);
 
   return (
     <React.Fragment>
@@ -45,7 +25,7 @@ const DashBoard = () => {
           height={550}
           series={[cook.length,grocery.length]}
           options={{
-            title: { text: "Student PieChart" },
+            title: { text: "Food type donation PieChart" },
             noData: { text: "Empty Data" },
             // colors:["#f90000","#f0f"],
             labels: ['cooked','grocery'],
