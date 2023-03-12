@@ -5,55 +5,6 @@ import Footer from "./footer";
 import { useUserAuth } from "../context/UserAuthContext";
 
 const Address = () => {
-  // const [userData, setUserData] = useState({
-  //   address: "",
-  //   city: "",
-  //   state: "",
-  //   pin: "",
-  // });
-
-  // let name, value;
-  // const postUserData = (event) => {
-  //   name = event.target.name;
-  //   value = event.target.value;
-
-  //   setUserData({ ...userData, [name]: value });
-  // };
-
-  // // connect with firebase
-  // const submitData = async (event) => {
-  //   event.preventDefault();
-  //   const { address, city, state, pin } = userData;
-
-  //   if (city && state && pin && address) {
-  //     const res = fetch(process.env.REACT_APP_DATABASE, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         address,
-  //         city,
-  //         state,
-  //         pin,
-  //       }),
-  //     });
-
-  //     if (res) {
-  //       setUserData({
-  //         address: "",
-  //         city: "",
-  //         state: "",
-  //         pin: "",
-  //       });
-  //       alert("Data Stored");
-  //     } else {
-  //       alert("plz fill the data");
-  //     }
-  //   } else {
-  //     alert("plz fill the data");
-  //   }
-  // };
   const firebase=useUserAuth();
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("");
@@ -63,6 +14,7 @@ const Address = () => {
   const handleSubmit = async(e) => {
     e.preventDefault();
     await firebase.handleCreateNewAddress(address,city,state,pin);
+    alert("Address is set.")
   };
 
   return (

@@ -28,10 +28,11 @@ const FoodCard =(props)=> {
           <Card.Title>{props.displayName}</Card.Title>
           <Card.Text>
             The Donor name is {props.displayName}
+            {/* <p><b>City</b>:{props.city}</p> */}
              {/* and this book is sold by{" "} */}
             {/* {props.displayName} and this book is costs Rs. {props.price} */}
           </Card.Text>
-          <Button variant="primary"  onClick={e=>navigate(`/book/view/${props.userID}`)}>View</Button>
+          <Button variant="primary"  onClick={e=>navigate(`/food/view/${props.id}`)}>View</Button>
         </Card.Body>
         </Col>
         </Row>

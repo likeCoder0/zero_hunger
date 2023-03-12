@@ -16,56 +16,9 @@ const Grocery = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     await firebase.handleCreateNewDonatingGrocery(which, canned,quatity, time,foodPic);
+    alert("Donation is listed.")
   };
-  // const [userData, setUserData] = useState({
-  //   which: "",
-  //   canned: "",
-  //   time: "",
-  //   pres: "",
-  // });
-
-  // let name, value;
-  // const postUserData = (event) => {
-  //   name = event.target.name;
-  //   value = event.target.value;
-
-  //   setUserData({ ...userData, [name]: value });
-  // };
-
-  // // connect with firebase
-  // const submitData = async (event) => {
-  //   event.preventDefault();
-  //   const { grocery_which,grocery_canned,grocery_time,grocery_pres} = userData;
-
-  //   if (grocery_which && grocery_canned && grocery_time&& grocery_pres) {
-  //     const res = fetch(
-  //       process.env.REACT_APP_DATABASE,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           grocery_which,grocery_canned,grocery_time,grocery_pres
-  //         }),
-  //       }
-  //     );
-
-  //     if (res) {
-  //       setUserData({
-  //         grocery_which: "",
-  //         grocery_canned: "",
-  //         grocery_time: "",
-  //         grocery_pres: "",
-  //       });
-  //       alert("Data Stored");
-  //     } else {
-  //       alert("plz fill the data");
-  //     }
-  //   } else {
-  //     alert("plz fill the data");
-  //   }
-  // };
+ 
   return (
     <div>
       <Navbar></Navbar>

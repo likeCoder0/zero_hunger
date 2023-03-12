@@ -30,7 +30,7 @@ function App() {
           <Route path="/navbar" element={<Protect_routes><Navbar /></Protect_routes>} />
           <Route path="/search" element={<Protect_routes><SearchPage /></Protect_routes>} />
           <Route path="/list" element={<Protect_routes><ListPage /></Protect_routes>} />
-          <Route path="/detail" element={<Protect_routes><DetailPage /></Protect_routes>} />
+          <Route path="/food/view/:foodId" element={<Protect_routes><DetailPage /></Protect_routes>} />
           <Route path="/cooked" element={<Protect_routes><Cooked /></Protect_routes>} />
           <Route path="/grocery" element={<Protect_routes><Grocery /></Protect_routes>} />
           <Route path="/content" element={<Protect_routes><Content /></Protect_routes>} />

@@ -8,6 +8,8 @@ const SignIn = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const { signUp } = useUserAuth();
   let navigate = useNavigate();
 
@@ -33,13 +35,21 @@ const SignIn = () => {
               type="text"
               name="loginUser"
               id="loginUser"
-              onChange={(e) => setEmail(e.target.value)}
+              value={displayName}
+              onChange={(e) => setDisplayName(e.target.value)}
               required
             />
             <label for="loginUser">Your name</label>
           </div>
           <div className="input-group">
-            <input type="text" name="loginUser" id="loginUser" required />
+            <input
+              type="text"
+              name="loginUser"
+              id="loginUser"
+              value={phoneNo}
+              onChange={(e) => setPhoneNo(e.target.value)}
+              required
+            />
             <label for="loginUser">Mobile number</label>
           </div>
           <div className="input-group">
@@ -50,7 +60,7 @@ const SignIn = () => {
               onChange={(e) => setEmail(e.target.value)}
               required
             />
-            <label for="loginUser">Email (optional)</label>
+            <label for="loginUser">Email</label>
           </div>
           <div className="input-group">
             <input

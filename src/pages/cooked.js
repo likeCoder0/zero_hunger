@@ -9,63 +9,16 @@ const Cooked = () => {
   const firebase = useUserAuth();
   const [time, setTime] = useState("");
   const [which, setWhich] = useState("");
-  const [pres, setPres] = useState("");
+  const [pres, setPres] = useState("1");
   const [canned, setCanned] = useState("");
   const [foodPic, setFoodPic] = useState("");
 
   const handleSubmit = async(e) => {
     e.preventDefault();
     await firebase.handleCreateNewDonatingCooked(which,canned,time,pres,foodPic);
+    alert("Donation is listed.")
   };
-  // const [userData, setUserData] = useState({
-  //   which: "",
-  //   canned: "",
-  //   time: "",
-  //   pres: "",
-  // });
-
-  // let name, value;
-  // const postUserData = (event) => {
-  //   name = event.target.name;
-  //   value = event.target.value;
-
-  //   setUserData({ ...userData, [name]: value });
-  // };
-
-  // // connect with firebase
-  // const submitData = async (event) => {
-  //   event.preventDefault();
-  //   const { which, canned, time, pres } = userData;
-
-  //   if (which && canned && time && pres) {
-  //     const res = fetch(process.env.REACT_APP_DATABASE, {
-  //       method: "POST",
-  //       headers: {
-  //         "Content-Type": "application/json",
-  //       },
-  //       body: JSON.stringify({
-  //         which,
-  //         canned,
-  //         time,
-  //         pres,
-  //       }),
-  //     });
-
-  //     if (res) {
-  //       setUserData({
-  //         which: "",
-  //         canned: "",
-  //         time: "",
-  //         pres: "",
-  //       });
-  //       alert("Data Stored");
-  //     } else {
-  //       alert("plz fill the data");
-  //     }
-  //   } else {
-  //     alert("plz fill the data");
-  //   }
-  // };
+ 
   return (
     <div>
       <Navbar></Navbar>
@@ -94,16 +47,6 @@ const Cooked = () => {
                 />
               </div>
 
-              {/* <div class="input-box">
-                <input
-                  type="text"
-                  placeholder="Canned/Unpack food"
-                  name="canned"
-                  id=""
-                  value={canned}
-                  onChange={(e) => setCanned(e.target.value)}
-                />
-              </div> */}
               <div class="input-box">
                 <select class="form-select" aria-label="Default select example" value={canned} onChange={(e) => setCanned(e.target.value)} >
                   <option selected>

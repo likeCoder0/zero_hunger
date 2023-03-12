@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { getFirestore, collection, addDoc, getDocs } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import app, { auth } from "../firebase";
 
@@ -23,24 +23,21 @@ export function UserAuthContextProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password);
   }
   function signUp(email, password) {
+
     return createUserWithEmailAndPassword(auth, email, password);
   }
 
   const signinWithGoogle = () => signInWithPopup(auth, googleProvider);
   // Adding address of user
   const handleCreateNewAddress = async (address, city, state, pin) => {
-    // const imageRef = ref(storage, `uploads/images/${Date.now()}-${cover.name}`);
-    // const uploadResult = await uploadBytes(imageRef, cover);
-    return await addDoc(collection(firestore, "users"), {
+    return await setDoc(doc(firestore, "users",`${user.uid}`), {
       address,
       city,
       state,
       pin,
-      // imageURL: uploadResult.ref.fullPath,
       userID: user.uid,
       userEmail: user.email,
       displayName: user.displayName,
-      photoURL: user.photoURL,
     });
   };
   // donating
@@ -74,18 +71,19 @@ export function UserAuthContextProvider({ children }) {
     canned,
     quatity,
     time,
+    foodPic,
   ) => {
-    // const imageRef = ref(
-    //   storage,
-    //   `uploads/images/${Date.now()}-${foodPic.name}`
-    // );
-    // const uploadResult = await uploadBytes(imageRef, foodPic);
+    const imageRef = ref(
+      storage,
+      `uploads/images/${Date.now()}-${foodPic.name}`
+    );
+    const uploadResult = await uploadBytes(imageRef, foodPic);
     return await addDoc(collection(firestore, "donor"), {
       which,
       canned,
       quatity,
       time,
-      // imageURL: uploadResult.ref.fullPath,
+      imageURL: uploadResult.ref.fullPath,
       foodType:"Grocery",
       userID: user.uid,
       userEmail: user.email,
@@ -95,12 +93,43 @@ export function UserAuthContextProvider({ children }) {
   };
 
   const listAllFood=async()=>{
-    return await getDocs(collection(firestore,"donor"));
+    return await getDocs(collection(firestore, "donor"));
   }
 
   const getImageURL=(path)=>{
     return getDownloadURL(ref(storage,path));
   }
+  const getDonorById = async (id) => {
+    const docRef = doc(firestore, "donor", id);
+    const result = await getDoc(docRef);
+    return result;
+  };
+
+  const placeOrder = async (bookId, qty) => {
+    const collectionRef = collection(firestore, "donor", bookId, "orders");
+    const result = await addDoc(collectionRef, {
+      userID: user.uid,
+      userEmail: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      qty: Number(qty),
+    });
+    return result;
+  };
+
+  const fetchMydonor = async (userId) => {
+    const collectionRef = collection(firestore, "donor");
+    const q = query(collectionRef, where("userID", "==", userId));
+
+    const result = await getDocs(q);
+    return result;
+  };
+
+  const getOrders = async (bookId) => {
+    const collectionRef = collection(firestore, "donor", bookId, "orders");
+    const result = await getDocs(collectionRef);
+    return result;
+  };
 
   const logOut=()=> {
     return signOut(auth);
@@ -128,6 +157,7 @@ export function UserAuthContextProvider({ children }) {
         handleCreateNewDonatingGrocery,
         listAllFood,
         getImageURL,
+        getDonorById,
         logOut,
       }}
     >
@@ -194,7 +224,7 @@ export function useUserAuth() {
 //   const handleCreateNewListing = async (name, isbn, price, cover) => {
 //     const imageRef = ref(storage, `uploads/images/${Date.now()}-${cover.name}`);
 //     const uploadResult = await uploadBytes(imageRef, cover);
-//     return await addDoc(collection(firestore, "books"), {
+//     return await addDoc(collection(firestore, "donor"), {
 //       name,
 //       isbn,
 //       price,
@@ -207,7 +237,7 @@ export function useUserAuth() {
 //   };
 
 //     const listAllBook=async()=>{
-//       return await getDocs(collection(firestore,"books"));
+//       return await getDocs(collection(firestore,"donor"));
 //     }
 
 //     const getImageURL=(path)=>{
