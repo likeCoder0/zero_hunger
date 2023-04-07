@@ -124,6 +124,13 @@ export function UserAuthContextProvider({ children }) {
     const result = await getDocs(q);
     return result;
   };
+  // const fetchMyUser = async (userID) => {
+  //   const collectionRef = collection(firestore, "users");
+  //   const q = query(collectionRef, where(userID, "==", userId));
+
+  //   const result = await getDocs(q);
+  //   return result;
+  // };
 
   const getOrders = async (foodId) => {
     const collectionRef = collection(firestore, "donor", foodId, "orders");

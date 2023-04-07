@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useUserAuth } from "../context/UserAuthContext";
 import Cooked from "./cooked";
 import Grocery from "./grocery";
 
 const Page2 = () => {
+
+  // const firebase=useUserAuth();
+  // useEffect(() => {
+  //     if(firebase.user.)
+    
+  // }, [])
+  
   return (
     <>
       <div class="bg-image1"></div>

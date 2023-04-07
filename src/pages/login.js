@@ -45,6 +45,7 @@ const Login = () => {
             type="text"
             name="loginUser"
             id="loginUser"
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
@@ -55,6 +56,7 @@ const Login = () => {
             type="password"
             name="loginPassword"
             id="loginPassword"
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
           />

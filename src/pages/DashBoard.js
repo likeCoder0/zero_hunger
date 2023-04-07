@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Chart from "react-apexcharts";
+import { Col, Row } from "react-bootstrap";
 import { useUserAuth } from "../context/UserAuthContext";
 import Navbar from "./navbar";
 
@@ -13,12 +14,15 @@ const DashBoard = () => {
       firebase.fetchMydonor("foodType","Grocery")?.then((grocery) => setGrocery(grocery.docs));
   }, [firebase]);
 
+  // console.log(firebase.user)
 
   return (
     <React.Fragment>
         <Navbar></Navbar>
       <div className="container-fluid mb-3">
         {/* <h2>{foods.length}</h2> */}
+        <Row>
+          <Col >
         <Chart
           type="pie"
           width={1349}
@@ -31,6 +35,12 @@ const DashBoard = () => {
             labels: ['cooked','grocery'],
           }}
         ></Chart>
+          </Col>
+          <Col>
+          <h4>Total Number of donor: {cook.length+grocery.length}</h4>
+          <h4>Total Number of user: {4}</h4>
+          </Col>
+        </Row>
       </div>
     </React.Fragment>
   );

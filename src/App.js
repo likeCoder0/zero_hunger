@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import { Routes, Route, Router } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Home from "./home";
 import Navbar from "./pages/navbar";
 import Login from "./pages/login";
@@ -17,7 +17,6 @@ import Protect_routes from "./utils/protect_routes";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 import Cooked from "./pages/cooked";
 import Grocery from "./pages/grocery";
-import SearchPage from "./pages/SearchPage";
 import ListPage from "./pages/ListPage";
 import DetailPage from "./pages/DetailPage";
 import OrdersPage from "./pages/ViewOrder";
@@ -34,7 +33,6 @@ function App() {
           <Route path="/dashBoard" element={<Protect_routes><DashBoard /></Protect_routes>} />
           <Route path="/list" element={<Protect_routes><ListPage /></Protect_routes>} />
           <Route path="/food/orders" element={<Protect_routes><OrdersPage /></Protect_routes>} />
-          {/* <Route path="/search" element={<Protect_routes><SearchPage /></Protect_routes>} /> */}
           <Route path="/food/orders/:foodId" element={<Protect_routes><ViewOrderDetails /></Protect_routes>} />
           <Route path="/food/view/:foodId" element={<Protect_routes><DetailPage /></Protect_routes>} />
           <Route path="/cooked" element={<Protect_routes><Cooked /></Protect_routes>} />
