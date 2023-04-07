@@ -21,7 +21,7 @@ const ViewOrderDetails = () => {
       <Navbar></Navbar>
     <div className="container mt-3">
 
-      <h1>Orders</h1>
+      <h1>Requests recieved</h1>
       {orders.map((order) => {
         const data = order.data();
         return (
@@ -30,7 +30,7 @@ const ViewOrderDetails = () => {
             className="mt-5"
             style={{ border: "1px solid", padding: "10px" }}
           >
-            <h5>Order By: {data.displayName}</h5>
+            <h5>Reciever : {data.displayName}</h5>
             <h6>Qty: {data.pres}</h6>
             <p>Email: {data.userEmail}</p>
           </div>

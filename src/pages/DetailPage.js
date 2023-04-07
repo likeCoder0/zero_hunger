@@ -47,7 +47,7 @@ const DetailPage = () => {
       <p><b>Estimated servings possible</b>: {data.pres}</p>
       {/* <p>Price: Rs. {data.price}</p>
       <p>ISBN Number. {data.isbn}</p> */}
-      <h1>Owner Details</h1>
+      <h1>Donor details</h1>
       <p>Name: {data.displayName}</p>
       <p>Email: {data.userEmail}</p>
       <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -63,7 +63,7 @@ const DetailPage = () => {
         /></Col>
       </Form.Group>
       <Button onClick={placeOrder} variant="success">
-        Order
+       Confirm
       </Button>
     </div>
     </>

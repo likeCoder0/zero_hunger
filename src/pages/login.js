@@ -70,7 +70,7 @@ const Login = () => {
         />
         <h4 className="mt-1 mb-1">OR</h4>
         <Button variant="danger" onClick={handleGoogle}>
-          Sigin with Google
+          Signin with Google
         </Button>
         <hr></hr>
         <p>
