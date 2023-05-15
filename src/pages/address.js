@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import Navbar from "./navbar";
 import Footer from "./footer";
 import { useUserAuth } from "../context/UserAuthContext";
+import { serverTimestamp } from "firebase/firestore";
 
 const Address = () => {
   const firebase=useUserAuth();
@@ -16,6 +17,12 @@ const Address = () => {
     await firebase.handleCreateNewAddress(address,city,state,pin);
     alert("Address is set.")
   };
+
+  const [TakeAddress, setTakeAddress] = useState(null);
+
+  useEffect(() => {
+    firebase.getDonorAddressById()?.then((orders) => setTakeAddress(orders.data()));
+  }, []);
 
   return (
     <div>
@@ -79,7 +86,7 @@ const Address = () => {
               </div>
 
               <div class="contact-button">
-                <input type="button" value="Add Address" onClick={handleSubmit} />
+                <input type="button" disabled={address===""||city===""||state===""||pin===""} value="Add Address" onClick={handleSubmit} />
                 {/* <button ty onClick={submitData}>Add Address</button> */}
               </div>
             </form>

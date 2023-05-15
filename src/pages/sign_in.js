@@ -5,6 +5,7 @@ import { useUserAuth } from "../context/UserAuthContext";
 import { Alert } from "react-bootstrap";
 
 const SignIn = () => {
+  const firebase=useUserAuth();
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
   const [password, setPassword] = useState("");
@@ -17,6 +18,7 @@ const SignIn = () => {
     e.preventDefault();
     setError("");
     try {
+      
       await signUp(email, password);
       navigate("/");
     } catch (err) {

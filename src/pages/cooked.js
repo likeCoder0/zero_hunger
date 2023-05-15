@@ -44,11 +44,12 @@ const Cooked = () => {
                   id=""
                   value={which}
                   onChange={(e) => setWhich(e.target.value)}
+                  required
                 />
               </div>
 
               <div class="input-box">
-                <select class="form-select" aria-label="Default select example" value={canned} onChange={(e) => setCanned(e.target.value)} >
+                <select class="form-select" aria-label="Default select example" value={canned} onChange={(e) => setCanned(e.target.value)} required>
                   <option selected>
                     --Canned/Unpack food--
                   </option>
@@ -58,7 +59,9 @@ const Cooked = () => {
               </div>
 
               <div class="input-box">
-                <select class="form-select" aria-label="Default select example" value={time} onChange={(e) => setTime(e.target.value)} >
+                <select class="form-select" aria-label="Default select example" value={time} onChange={(e) => setTime(e.target.value)} 
+                  required
+                  >
                   <option selected>
                     --Estimate duration for which the food is consumable--
                   </option>
@@ -79,18 +82,22 @@ const Cooked = () => {
                   id=""
                   value={pres}
                   onChange={(e) => setPres(e.target.value)}
+                  required
+
                 />
               </div>
               <div class="mb-3">
                 <label for="formFile" class="form-label">
                   Upload a picture of food
                 </label>
-                <input class="form-control" type="file" id="formFile" onChange={(e) => setFoodPic(e.target.files[0])}/>
+                <input class="form-control" type="file" id="formFile" onChange={(e) => setFoodPic(e.target.files[0])}
+                  required
+                  />
               </div>
 
               <div class="contact-button">
                 <Link to="/home">
-                  <input type="button" value="Continue" onClick={handleSubmit} />
+                  <input type="button" disabled={time==""||foodPic==""||canned==""||which==""} value="Continue" onClick={handleSubmit}/>
                 </Link>
               </div>
             </form>

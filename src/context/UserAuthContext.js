@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
 } from "firebase/auth";
-import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc } from "firebase/firestore";
+import { getFirestore, collection, addDoc, getDocs, doc, getDoc, query, where, setDoc, getCountFromServer, deleteDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import app, { auth } from "../firebase";
 
@@ -104,6 +104,11 @@ export function UserAuthContextProvider({ children }) {
     const result = await getDoc(docRef);
     return result;
   };
+  const getDonorAddressById = async () => {
+    const docRef = doc(firestore, "users", `${user.uid}`);
+    const result = await getDoc(docRef);
+    return result;
+  };
 
   const placeOrder = async (foodId, qty) => {
     const collectionRef = collection(firestore, "donor", foodId, "orders");
@@ -137,6 +142,18 @@ export function UserAuthContextProvider({ children }) {
     const result = await getDocs(collectionRef);
     return result;
   };
+  const getNumberOfUser = async () => {
+    const coll = collection(firestore, "users");
+    const snapshot = await getCountFromServer(coll);
+    const result=snapshot.data().count;
+    return result;
+  };
+  const listAllUser=async()=>{
+    return await getDocs(collection(firestore, "users"));
+  }
+  const getDelete=async(userId)=>{
+    await deleteDoc(doc(firestore, "donor", userId));
+  }
 
   const logOut=()=> {
     return signOut(auth);
@@ -155,7 +172,6 @@ export function UserAuthContextProvider({ children }) {
   return (
     <userAuthContext.Provider
       value={{
-        user,
         logIn,
         signUp,
         signinWithGoogle,
@@ -168,8 +184,11 @@ export function UserAuthContextProvider({ children }) {
         fetchMydonor,
         placeOrder,
         getOrders,
+        getDonorAddressById,
+        getNumberOfUser,
+        listAllUser,
+        getDelete,
         logOut,
-        // eslint-disable-next-line no-dupe-keys
         user,
       }}
     >

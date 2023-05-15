@@ -97,6 +97,7 @@ const Grocery = () => {
               <div class="contact-button">
                   <input
                     type="button"
+                    disabled={which==="" || canned==="" || quatity==="" || time==="" || foodPic===""}
                     value="Continue"
                     onClick={handleSubmit}
                   />

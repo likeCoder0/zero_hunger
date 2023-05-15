@@ -13,8 +13,12 @@ const ViewOrderDetails = () => {
 
   useEffect(() => {
     firebase.getOrders(params.foodId)?.then((orders) => setOrders(orders.docs));
-  }, []);
+  }, [firebase]);
   
+  const handleDelete=async()=>{
+   await firebase.getDelete(params.foodId);
+   alert("Deleted");
+  }
 
   return (
     <>
@@ -31,13 +35,14 @@ const ViewOrderDetails = () => {
             style={{ border: "1px solid", padding: "10px" }}
           >
             <h5>Reciever : {data.displayName}</h5>
-            <h6>Qty: {data.pres}</h6>
+            {/* <h6>Qty: {data.pres}</h6> */}
             <p>Email: {data.userEmail}</p>
           </div>
         );
       })}
       <div className="mt-3" style={{  padding: "10px" }}>
-        <Button onClick={e=>navigate("/food/orders")}>Back</Button>
+        <Button onClick={e=>navigate("/food/orders")}>Back</Button>{' '}
+        <Button variant="danger" onClick={handleDelete}>Delete</Button>
       </div>
     </div>
     </>

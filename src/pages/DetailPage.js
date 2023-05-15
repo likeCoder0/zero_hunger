@@ -44,13 +44,13 @@ const DetailPage = () => {
       <p><b>Canned/Unpack food</b>: {data.canned}</p>
       <p><b>Type of Food</b>: {data.foodType}</p>
       <p><b>which type of food</b>: {data.which}</p>
-      <p><b>Estimated servings possible</b>: {data.pres}</p>
+      <p><b>Estimated servings possible</b>: {data.pres || data.quatity}</p>
       {/* <p>Price: Rs. {data.price}</p>
       <p>ISBN Number. {data.isbn}</p> */}
       <h1>Donor details</h1>
       <p>Name: {data.displayName}</p>
       <p>Email: {data.userEmail}</p>
-      <Form.Group className="mb-3" controlId="formBasicPassword">
+      {/* <Form.Group className="mb-3" controlId="formBasicPassword">
         <Form.Label>Qty</Form.Label>
         <Col sm="3">
         <Form.Control
@@ -61,7 +61,7 @@ const DetailPage = () => {
           max={data.pres}
           placeholder="Enter Qty"
         /></Col>
-      </Form.Group>
+      </Form.Group> */}
       <Button onClick={placeOrder} variant="success">
        Confirm
       </Button>
